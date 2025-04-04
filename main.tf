@@ -10,10 +10,10 @@ terraform {
 provider "docker"{}
 
 resource "docker_container" "container_nginx"{
-	name = "nginx"
-	imagen = "nginx:latest"
-	port{
-		external = var.nginx_external_port[terraform.tfvars]
+	name = "nginx2"
+	image = "nginx:latest"
+	ports {
+		external = var.nginx_external_port[terraform.workspace]
 		internal = 80
 	}
 }
