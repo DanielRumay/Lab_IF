@@ -25,6 +25,35 @@ Amazon VPC y subredes privadas
 Aíslan los recursos del backend en un entorno seguro, evitando el acceso público directo a datos sensibles.
 
 
+#COMANDOS PARA EJECUTAR
+
+
+(terraform init)
+
+
+(terraform apply)
+
+
+(terraform plan)
+
+
+(curl localhost:3000)
+
+
+(terraform workspace list)
+
+
+(terraform workspace new dev)
+
+
+(terraform workspace select default)
+
+
+(systemctl restart docker)
+
+
+
+
 Estudiantes:
 -Rumay Iglesias Eduardo
 -Sthefano Jimenez Atoche
