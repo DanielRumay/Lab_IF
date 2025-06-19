@@ -21,9 +21,9 @@ resource "aws_subnet" "private2" {
 
 # DynamoDB
 resource "aws_dynamodb_table" "recetas" {
-  name           = "Recetas"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "id"
+  name         = "Recetas"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
 
   attribute {
     name = "id"
@@ -73,4 +73,83 @@ resource "aws_lambda_function" "mi_lambda" {
     subnet_ids         = [aws_subnet.private1.id, aws_subnet.private2.id]
     security_group_ids = []
   }
+}
+
+# S3 para frontend
+resource "aws_s3_bucket" "frontend" {
+  bucket = "your-frontend-bucket-name"
+  acl    = "public-read"
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"  # Si tienes una página de error
+  }
+}
+
+# ACM (SSL certificado)
+resource "aws_acm_certificate" "example" {
+  domain_name       = "your-domain.com"
+  validation_method = "DNS"
+
+  tags = {
+    Name = "example"
+  }
+}
+
+# CloudFront distribución
+resource "aws_cloudfront_distribution" "this" {
+  origin {
+    domain_name = aws_s3_bucket.frontend.bucket_regional_domain_name
+    origin_id   = "S3-Frontend"
+
+    s3_origin_config {
+      origin_access_identity = "origin-access-identity/cloudfront/your-identity"
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "CloudFront Distribution for the Frontend"
+  default_root_object = "index.html"
+
+  default_cache_behavior {
+    target_origin_id       = "S3-Frontend"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods {
+      items = ["GET", "HEAD"]
+    }
+    cached_methods {
+      items = ["GET", "HEAD"]
+    }
+    forward_cookie {
+      forward = "none"
+    }
+    forward_query_string = false
+  }
+
+  viewer_certificate {
+    acm_certificate_arn = aws_acm_certificate.example.arn
+    ssl_support_method  = "sni-only"
+  }
+
+  price_class = "PriceClass_100"  # Puedes cambiarlo dependiendo del costo y la región
+
+  logging_config {
+    include_cookies = false
+    bucket          = "logs.your-bucket-name.s3.amazonaws.com"
+    prefix          = "cloudfront-logs/"
+  }
+}
+
+# Módulos para organizarlos (en main.tf principal)
+module "cloudfront" {
+  source = "./modules/cloudfront"
+}
+
+module "s3" {
+  source = "./modules/s3"
+}
+
+module "acm" {
+  source = "./modules/acm"
 }
