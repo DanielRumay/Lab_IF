@@ -1,0 +1,29 @@
+# Terraform generated files and directories
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfstate.backup
+terraform.tfvars
+crash.log
+override.tf
+override.tf.json
+
+# Terraform providers and plugins
+*.zip
+*.exe
+*.bin
+*.so
+
+# Logs and system files
+*.log
+*.bak
+.DS_Store
+Thumbs.db
+
+# Checkov or security scan results
+checkov/
+*.json
+
+# IDE/editor config
+.vscode/
+.idea/
