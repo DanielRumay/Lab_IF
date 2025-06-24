@@ -1,8 +1,10 @@
 version: '3.8'
 
 services:
-  jenkins:
-    image: jenkins/jenkins:lts
+  jenkins_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins_server
     ports:
       - "8080:8080"
