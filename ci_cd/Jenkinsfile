@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+
+  environment {
+    AWS_REGION = 'us-east-1'
+  }
+
+  stages {
+    stage('Terraform Init') {
+      steps {
+        sh 'cd terraform && terraform init'
+      }
+    }
+
+    stage('Terraform Plan') {
+      steps {
+        sh 'cd terraform && terraform plan'
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        sh 'cd terraform && terraform apply -auto-approve'
+      }
+    }
+
+    stage('Run Checkov') {
+      steps {
+        sh 'bash ci_cd/scripts/checkov_scan.sh'
+      }
+    }
+  }
+}
