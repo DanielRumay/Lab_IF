@@ -10,7 +10,3 @@ resource "aws_lambda_function" "recetas_lambda" {
   role          = var.role_arn
   runtime       = "python3.9"
 }
-
-output "function_name" {
-  value = aws_lambda_function.recetas_lambda.function_name
-}
