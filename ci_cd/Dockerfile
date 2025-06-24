@@ -10,7 +10,7 @@ RUN apt-get update && \
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg || (echo "❌ Falló al descargar clave GPG" && exit 1)
 
 # Paso 3: Añadir repositorio de Terraform
-RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com debian main" > /etc/apt/sources.list.d/hashicorp.list
+RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" > /etc/apt/sources.list.d/hashicorp.list
 
 # Paso 4: Instalar Terraform
 RUN apt-get update && \
