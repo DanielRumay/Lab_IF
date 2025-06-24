@@ -1,0 +1,252 @@
+    1  sudo apt update
+    2  sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    3  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    4  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    5  sudo apt update
+    6  apt-cache policy docker-ce
+    7  sudo apt install docker-ce
+    8  sudo systemctl status docker
+    9  sudo apt update && sudo apt upgrade -y
+   10  sudo apt install fontconfig openjdk-11-jre -y
+   11  java -version
+   12  curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+   13  echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]  https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+   14  sudo apt update
+   15  sudo apt install Jenkins
+   16  sudo apt-get update
+   17  sudo apt install openjdk-11-jdk
+   18  java --version
+   19  sudo apt install Jenkins
+   20  sudo apt update
+   21  sudo apt install Jenkins
+   22  sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+   23  sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+   24  sudo apt update
+   25  ls
+   26  cd
+   27  ls
+   28  nano docker-compose.yaml
+   29  sudo docker compose up -d
+   30  sudo docker logs jenkins
+   31  sudo docker start jenkins
+   32  sudo snap install terraform
+   33  sudo apt-get install unzip
+   34  wget https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+   35  unzip terraform_1.0.7_linux_amd64.zip
+   36  sudo mv terraform /usr/local/bin/
+   37  terraform --version 
+   38  systemctl restart docker
+   39  docker -version
+   40  docker --version
+   41  terraform init
+   42  sudo snap install terraform
+   43  terraform init
+   44  terraform plan
+   45  terraform apply
+   46  terraform plan
+   47  systemctl restart docker
+   48  terraform plan
+   49  sudo terraform init
+   50  sudo terraform apply
+   51  terraform workspace new d
+   52  terraform workspace select default
+   53  sudo terraform apply
+   54  terraform workspace list
+   55  curl localhost:3000
+   56  curl localhost:8080
+   57  sudo terraform apply
+   58  terraform workspace select dev
+   59  sudo terraform apply
+   60  docker ps
+   61  sudo docker ps
+   62  sudo terraform apply
+   63  systemctl restart docker
+   64  sudo terraform apply
+   65  git init
+   66  git commit -m "Terraform_lab1"
+   67  git config --global user.email "sjimeneza1@upao.edu.pe"
+   68  git config --global user.name "Sthefano"
+   69  git commit -m "Terraform_lab1"
+   70  git add .
+   71  git commit -m "Terraform_lab1"
+   72  git remote add origin https://github.com/DanielRumay/Lab_IF.git
+   73  git push -u origin main
+   74  git branch -M main
+   75  git push -u origin main
+   76  git add .
+   77  git remote add origin https://github.com/DanielRumay/Lab_IF.git
+   78  git push -u origin main
+   79  git branch -M main
+   80  git push -u origin main
+   81  git remote add origin https://github.com/DanielRumay/Lab_IF.git
+   82  git push -u origin main
+   83  git remote set-url origin https://github.com/NuevaURL/Repositorio.git
+   84  git add .
+   85  git commit -m "Transform_lab2"
+   86  git push origin main
+   87  git remote set-url origin https://github.com/DanielRumay/Lab_IF.git
+   88  git add .
+   89  git commit -m "Transform_lab2"
+   90  git push origin main
+   91  ping -c 4 google.com
+   92  curl -v https://registry-1.docker.io/v2/
+   93  sudo terraform apply
+   94  docker --version
+   95  docker -version
+   96  docker --version
+   97  docker logs nginx
+   98  docker --version
+   99  sudo terraform apply
+  100  docker logs nginx
+  101  git commit -m "Transform_lab2"
+  102  terraform init
+  103  clear
+  104  ls
+  105  sudo apt update
+  106  sudo apt install git
+  107  git remote add origin https://github.com/SthefanoJimenez/PROYECTO.git
+  108  git init
+  109  git remote add origin https://github.com/SthefanoJimenez/PROYECTO.git
+  110  git commit -m "Creación"
+  111  git add .
+  112  git commit -m "Creación"
+  113  git remote add origin https://github.com/SthefanoJimenez/PROYECTO.git
+  114  git init
+  115  git remote add origin https://github.com/SthefanoJimenez/PROYECTO.git
+  116  git status
+  117  git remote -v
+  118  git remote remove origin
+  119  git remote add origin https://github.com/SthefanoJimenez/PROYECTO.git
+  120  git remove -v
+  121  git remote -v
+  122  git push -u origin master
+  123  git add.
+  124  git add .
+  125  git --version
+  126  git clone https://github.com/SthefanoJimenez/PROYECTO.git
+  127  git branch 
+  128  git add .
+  129  git commit -m "Creación"
+  130  git push
+  131  git config --global user.email
+  132  git push -u origin main
+  133  git remote set-url origin https://github.com/SthefanoJimenez/PROYECTO.git
+  134  git push -u origin main
+  135  git credential-cache exit
+  136  cd ~
+  137  nano .git-credentials
+  138  git remote set-url origin https://github.com/SthefanoJimenez/PROYECTO.git
+  139  nano .git-credentials
+  140  sudo apt install  gcc make perl -y 
+  141  sudo apt update
+  142  df
+  143  df -h
+  144  du -csh *
+  145  du -csh .
+  146  cargo search dua-cli
+  147  sudo apt  install cargo
+  148  df -h
+  149  df -h
+  150  df -h /
+  151  sudo apt update
+  152  df -h /
+  153  df -h /
+  154  free -h
+  155  df h /
+  156  df -h /
+  157  free -h
+  158  git clone https://github.com/DanielRumay/Lab_IF.git
+  159  git add .
+  160  cd LAB_IF
+  161  git add .
+  162  git commit -m "actualizacion aws"
+  163  git push origin master
+  164  git push --force origin master
+  165  git push --force origin main
+  166  git init
+  167  git remote set-url origin https://github.com/DanielRumay/Lab_IF.git
+  168  git add .
+  169  git commit -m "Actualizacion aws"
+  170  git push --force origin
+  171  git push --force origin master
+  172  git rm -r --cached .terraform/
+  173  sudo apt install git-filter-repo
+  174  pip install git-filter-repo
+  175  sudo apt install git-filter-repo
+  176  git filter-repo --path .terraform --invert-paths
+  177  git push --force origin main
+  178  git add .
+  179  git commit -m "Cambio readme"
+  180  git push --force origin main
+  181  git add .
+  182  git commit -m "Comandos"
+  183  git push --force origin main
+  184  df h /
+  185  df -h /
+  186  --version docker
+  187  -- docker
+  188  docker --version
+  189  systemctl status docker
+  190  clear
+  191  sudo apt-get update
+  192  sudo apt-get install ./docker-desktop-amd64.deb
+  193  sudo apt install gnome-terminal
+  194  sudo apt-get install ./docker-desktop-amd64.deb
+  195  cd ~/Escritorio
+  196  sudo dpkg -i docker-desktop-amd64.deb
+  197  sudo apt-get install -f
+  198  systemctl --user start docker-desktop
+  199  clear
+  200  ubuntu --version
+  201  --version ubuntu
+  202  sudo apt-get update
+  203  sudo apt-get install docker-compose-plugin
+  204  docker compose version
+  205  docker ps
+  206  clear
+  207  docker ps
+  208  sudo usermod -aG docker $USER
+  209  newgrp docker
+  210  docker volume inspect tareasemana9_jenkins_lab3
+  211  docker volume ls
+  212  docker volume
+  213  docker volume ls
+  214  sudo usermod -aG docker $USER
+  215  newgrp docker
+  216  docker volumen inspect tareasemana9_jenkins_lab3
+  217  docker volume inspect tareasemana9_jenkins_lab3
+  218  docker compose ps
+  219  docker exec -ti lab03 /bin/sh
+  220  %
+  221  docker exec -ti lab03 /bin/sh
+  222  /docker exec -ti lab03 /bin/sh
+  223  docker exec -ti lab03 /bin/sh
+  224  newgrp docker
+  225  docker volume ls
+  226  newgrp docker
+  227  docker --version
+  228  docker compose up
+  229  docker compose up
+  230  terraform init
+  231  terraform plan
+  232  terraform init
+  233  terraform plan
+  234  terraform apply
+  235  docker compose up -d
+  236  docker ps
+  237  terraform apply
+  238  docker compose up -d
+  239  docker ps
+  240  git clone https://github.com/DanielRumay/Lab_IF.git
+  241  sudo apt update -y
+  242  sudo apt install -y openjdk-11-jdk
+  243  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+  244  sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+  245  sudo apt update -y
+  246  sudo apt install -y jenkins
+  247  sudo systemctl enable jenkins
+  248  sudo systemctl start jenkins
+  249  sudo systemctl status jenkins -l
+  250  sudo cat /var/log/jenkins/jenkins.log
+  251  history > comandos_usados 2.txt
+  252  history > comandos_usados_2.txt
