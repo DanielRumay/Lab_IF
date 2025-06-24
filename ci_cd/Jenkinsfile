@@ -1,33 +1,46 @@
 pipeline {
-  agent any
-
-  environment {
-    AWS_REGION = 'us-east-1'
-  }
-
-  stages {
-    stage('Terraform Init') {
-      steps {
-        sh 'cd terraform && terraform init'
-      }
+    agent any
+    environment {
+        AWS_REGION = "us-east-1"
+        CHECKOV_REPORT = "checkov/results/scan_report.json"
     }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'develop', url: 'https://github.com/DanielRumay/Lab_IF.git'
+            }
+        }
 
-    stage('Terraform Plan') {
-      steps {
-        sh 'cd terraform && terraform plan'
-      }
-    }
+        stage('Terraform Init') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform init'
+                }
+            }
+        }
 
-    stage('Terraform Apply') {
-      steps {
-        sh 'cd terraform && terraform apply -auto-approve'
-      }
-    }
+        stage('Terraform Plan') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform plan'
+                }
+            }
+        }
 
-    stage('Run Checkov') {
-      steps {
-        sh 'bash ci_cd/scripts/checkov_scan.sh'
-      }
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Run Checkov') {
+            steps {
+                sh 'mkdir -p checkov/results'
+                sh 'checkov -d terraform -o json > ${CHECKOV_REPORT}'
+                sh 'aws s3 cp ${CHECKOV_REPORT} s3://recetas-checkov/scan_report.json'
+            }
+        }
     }
-  }
 }
