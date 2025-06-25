@@ -20,6 +20,14 @@ pipeline {
       }
     }
 
+    stage('Empaquetar Lambda') {
+      steps {
+        dir('terraform') {
+          sh 'zip lambda.zip lambda_function.py'
+        }
+      }
+    }
+
     stage('Terraform Init') {
       steps {
         dir('terraform') {
@@ -53,7 +61,6 @@ pipeline {
         }
       }
     }
-
   }
 
   post {
@@ -65,5 +72,3 @@ pipeline {
     }
   }
 }
-
-
