@@ -3,7 +3,7 @@ version: '3.8'
 services:
   jenkins_server:
     build:
-      context: .
+      context: ./ci_cd       # 📍 Asegura que apunta a la carpeta con tu Dockerfile
       dockerfile: Dockerfile
     container_name: jenkins_server
     ports:
