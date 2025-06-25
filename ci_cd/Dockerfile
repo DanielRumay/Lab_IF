@@ -2,17 +2,17 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Instalar Terraform, Checkov y AWS CLI
+# Instalar Terraform, Checkov, AWS CLI y utilidades necesarias
 RUN apt-get update && \
     apt-get install -y curl unzip zip gnupg software-properties-common python3-pip python3-venv && \
     \
-    # Instalar Terraform
+    # Instalar Terraform desde el repositorio oficial
     curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" > /etc/apt/sources.list.d/hashicorp.list && \
     apt-get update && \
     apt-get install -y terraform && \
     \
-    # Instalar entorno virtual y Checkov
+    # Crear entorno virtual para Checkov
     python3 -m venv /opt/checkov-env && \
     /opt/checkov-env/bin/pip install --upgrade pip && \
     /opt/checkov-env/bin/pip install checkov && \
