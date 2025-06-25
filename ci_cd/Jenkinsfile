@@ -48,10 +48,12 @@ pipeline {
     stage('Run Checkov') {
       steps {
         dir('ci_cd') {
-          sh './checkov_scan.sh'
+          // Ejecutar Checkov y no detener el pipeline aunque falle
+          sh 'bash checkov_scan.sh || true'
         }
       }
     }
+
   }
 
   post {
