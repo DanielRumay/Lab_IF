@@ -1,46 +1,66 @@
 pipeline {
-    agent any
-    environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+  agent any
+
+  environment {
+    TF_IN_AUTOMATION        = "true"
+    AWS_REGION              = "us-east-1"
+    AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
+  }
+
+  options {
+    skipStagesAfterUnstable()
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
     }
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'develop', url: 'https://github.com/DanielRumay/Lab_IF.git'
-            }
-        }
 
-        stage('Terraform Init') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                }
-            }
+    stage('Terraform Init') {
+      steps {
+        dir('terraform') {
+          sh 'terraform init'
         }
-
-        stage('Terraform Plan') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform plan'
-                }
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform apply -auto-approve'
-                }
-            }
-        }
-
-        stage('Run Checkov') {
-            steps {
-                sh 'mkdir -p checkov/results'
-                sh 'checkov -d terraform -o json > ${CHECKOV_REPORT}'
-                sh 'aws s3 cp ${CHECKOV_REPORT} s3://recetas-checkov/scan_report.json'
-            }
-        }
+      }
     }
+
+    stage('Terraform Plan') {
+      steps {
+        dir('terraform') {
+          sh 'terraform plan -var-file=terraform.tfvars'
+        }
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        input message: '¿Deseas aplicar los cambios con Terraform?'
+        dir('terraform') {
+          sh 'terraform apply -auto-approve -var-file=terraform.tfvars'
+        }
+      }
+    }
+
+    stage('Run Checkov') {
+      steps {
+        dir('ci_cd') {
+          sh './checkov_scan.sh'
+        }
+      }
+    }
+  }
+
+  post {
+    failure {
+      echo "❌ La ejecución del pipeline falló."
+    }
+    success {
+      echo "✅ Pipeline ejecutado correctamente."
+    }
+  }
 }
+
