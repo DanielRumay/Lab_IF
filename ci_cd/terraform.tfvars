@@ -1,0 +1,15 @@
+jenkins_ami              = "ami-0c2b8ca1dad447f8a"
+instance_type            = "t2.micro"
+vpc_cidr                 = "10.0.0.0/16"
+subnet_cidrs             = ["10.0.1.0/24", "10.0.2.0/24"]
+availability_zones       = ["us-east-1a", "us-east-1b"]
+db_user                  = "admin"
+db_password              = "securepassword"
+lambda_function_name     = "recetasLambda"
+lambda_package           = "lambda.zip"
+lambda_handler           = "handler.lambda_handler"
+s3_checkov_bucket_name   = "recetas-checkov"
+s3_multimedia_bucket     = "recetas-multimedia"
+zone_id                  = "Z0987075Y6LW7RTWRP0F"
+domain_name              = "recetas.midominio.com"
+api_name                 = "RecetasAPI"
