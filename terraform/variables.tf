@@ -13,3 +13,7 @@ variable "s3_multimedia_bucket" {}
 variable "zone_id" {}
 variable "domain_name" {}
 variable "api_name" {}
+variable "region" {
+  description = "Región AWS para desplegar recursos"
+  type        = string
+}

@@ -53,6 +53,30 @@ pipeline {
       }
     }
 
+    stage('Deploy Frontend') {
+      steps {
+        dir('frontend-site') {
+          sh '''
+            aws s3 sync . s3://recetas-frontend \
+              --region ${AWS_REGION} \
+              --delete \
+              --acl public-read
+          '''
+        }
+      }
+    }
+
+    stage('Mostrar URL del API') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🔗 Endpoint disponible en:"
+            terraform output api_invoke_url
+          '''
+        }
+      }
+    }
+
     stage('Run Checkov') {
       steps {
         dir('ci_cd') {

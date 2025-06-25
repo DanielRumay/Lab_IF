@@ -86,9 +86,11 @@ module "s3_checkov" {
 }
 
 module "api_gateway" {
-  source   = "../modules/api_gateway"
-  api_name = var.api_name
-  lambda_invoke_arn  = module.lambda.invoke_arn
+  source                = "../modules/api_gateway"
+  api_name              = var.api_name
+  lambda_invoke_arn     = module.lambda.invoke_arn
+  lambda_function_name  = module.lambda.function_name
+  region                = var.region
 }
 
 module "cloudfront" {
