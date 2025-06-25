@@ -2,13 +2,13 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Instalar Terraform, Checkov, AWS CLI y utilidades necesarias
+# Instalar dependencias, Terraform, Checkov y AWS CLI
 RUN apt-get update && \
-    apt-get install -y curl unzip zip gnupg software-properties-common python3-pip python3-venv && \
+    apt-get install -y curl unzip zip gnupg software-properties-common lsb-release python3-pip python3-venv && \
     \
-    # Instalar Terraform desde el repositorio oficial
+    # Agregar repositorio oficial de HashiCorp para Terraform (auto detecta versión)
     curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" > /etc/apt/sources.list.d/hashicorp.list && \
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/hashicorp.list && \
     apt-get update && \
     apt-get install -y terraform && \
     \
@@ -24,7 +24,8 @@ RUN apt-get update && \
     /tmp/aws/install && \
     \
     # Limpieza
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/awscliv2.zip /tmp/aws
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/aws /tmp/awscliv2.zip
 
 USER jenkins
+
 
