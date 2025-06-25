@@ -4,7 +4,7 @@ USER root
 
 # Instalar Terraform, Checkov y AWS CLI
 RUN apt-get update && \
-    apt-get install -y curl unzip gnupg software-properties-common python3-pip python3-venv && \
+    apt-get install -y curl unzip zip gnupg software-properties-common python3-pip python3-venv && \
     \
     # Instalar Terraform
     curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
