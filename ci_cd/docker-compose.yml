@@ -3,7 +3,7 @@ version: '3.8'
 services:
   jenkins:
     build:
-      context: .          # ⬅️ ← Esto arregla el path
+      context: .
       dockerfile: Dockerfile
     container_name: jenkins
     ports:
@@ -11,8 +11,12 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
+    environment:
+      - AWS_REGION=us-east-1
+
     restart: unless-stopped
 
 volumes:
   jenkins_home:
+
 
