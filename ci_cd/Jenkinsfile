@@ -13,7 +13,6 @@ pipeline {
   }
 
   stages {
-
     stage('Checkout') {
       steps {
         checkout scm
@@ -53,10 +52,32 @@ pipeline {
       }
     }
 
+    stage('Deploy Frontend') {
+      steps {
+        dir('frontend-site') {
+          sh '''
+            aws s3 sync . s3://recetas-frontend \
+              --region ${AWS_REGION} \
+              --delete
+          '''
+        }
+      }
+    }
+
+    stage('Mostrar URL del API') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🔗 URL del API:"
+            terraform output api_invoke_url
+          '''
+        }
+      }
+    }
+
     stage('Run Checkov') {
       steps {
         dir('ci_cd') {
-          // Ejecutar Checkov y no detener el pipeline aunque falle
           sh 'bash checkov_scan.sh || true'
         }
       }

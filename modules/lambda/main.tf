@@ -8,5 +8,9 @@ resource "aws_lambda_function" "recetas_lambda" {
   filename      = var.filename
   handler       = var.handler
   role          = var.role_arn
-  runtime       = "python3.9"
+  runtime       = "python3.12"
+
+  source_code_hash = filebase64sha256(var.filename)
 }
+
+

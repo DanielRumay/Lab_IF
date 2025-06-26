@@ -9,3 +9,7 @@ output "lambda_function_name" {
 output "jenkins_public_ip" {
   value = module.ec2.public_ip
 }
+
+output "api_invoke_url" {
+  value = module.api_gateway.api_invoke_url
+}
