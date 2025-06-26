@@ -4,8 +4,19 @@ USER root
 
 # Instalar utilidades y dependencias
 RUN apt-get update && \
-    apt-get install -y curl unzip zip gnupg lsb-release software-properties-common python3-pip python3-venv && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+        curl \
+        unzip \
+        zip \
+        gnupg \
+        lsb-release \
+        software-properties-common \
+        python3-pip \
+        python3-venv \
+        python3-dev \
+        build-essential \
+        git \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar Terraform
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
@@ -26,6 +37,9 @@ RUN python3 -m venv /opt/checkov-env && \
     /opt/checkov-env/bin/pip install checkov && \
     ln -s /opt/checkov-env/bin/checkov /usr/local/bin/checkov
 
+# Instalar dependencias de pruebas (pytest)
+RUN pip install --no-cache-dir pytest
+
 # Configurar credenciales AWS
 RUN mkdir -p /root/.aws && echo "\
 [default]\n\
@@ -36,5 +50,6 @@ output = json\n\
 " > /root/.aws/credentials
 
 USER jenkins
+
 
 
