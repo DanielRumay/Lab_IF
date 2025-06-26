@@ -19,10 +19,49 @@ pipeline {
       }
     }
 
+    stage('Lint Terraform') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🔍 Ejecutando terraform fmt..."
+            terraform fmt -check -recursive
+
+            echo "🔍 Ejecutando tflint..."
+            tflint || true
+          '''
+        }
+      }
+    }
+
+    stage('Validar Terraform') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🧪 Validando configuración..."
+            terraform validate
+          '''
+        }
+      }
+    }
+
     stage('Empaquetar Lambda') {
       steps {
         dir('terraform') {
           sh 'zip lambda.zip lambda_function.py'
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        dir('.') {
+          sh '''
+            echo "🧪 Instalando dependencias de pruebas..."
+            pip install -r requirements.txt
+
+            echo "✅ Ejecutando pruebas con pytest..."
+            pytest tests/
+          '''
         }
       }
     }
