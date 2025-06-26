@@ -45,3 +45,12 @@ output "jenkins_sg_id" {
 output "rds_sg_id" {
   value = aws_security_group.rds_sg.id
 }
+
+resource "aws_security_group_rule" "grafana_ingress" {
+  type              = "ingress"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.jenkins_sg.id
+}
