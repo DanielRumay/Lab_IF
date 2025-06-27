@@ -11,7 +11,7 @@ module "lambda_function" {
 }
 
 module "api_gateway" {
-  source              = "../../modules/api_gateway"
-  lambda_invoke_arn   = module.lambda_function.invoke_arn
-  api_name            = var.api_name
+  source            = "../../modules/api_gateway"
+  lambda_invoke_arn = module.lambda_function.invoke_arn
+  api_name          = var.api_name
 }

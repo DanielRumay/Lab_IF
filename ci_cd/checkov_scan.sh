@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
-checkov -d terraform/ -o json > checkov/results/scan_report.json
+# Crear el directorio si no existe
+mkdir -p ci_cd/checkov/results
+
+# Ejecutar Checkov y guardar el reporte en JSON
+checkov -d terraform/ -o json > ci_cd/checkov/results/scan_report.json
 
 exit 0

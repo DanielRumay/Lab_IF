@@ -6,6 +6,7 @@ terraform {
       version = "~> 5.0"
     }
   }
+
   backend "s3" {
     bucket = "recetas-terraform-state"
     key    = "dev/terraform.tfstate"
@@ -18,31 +19,31 @@ provider "aws" {
 }
 
 module "vpc" {
-  source              = "../modules/vpc"
-  cidr_block          = var.vpc_cidr
-  subnet_cidrs        = var.subnet_cidrs
-  availability_zones  = var.availability_zones
+  source             = "../modules/vpc"
+  cidr_block         = var.vpc_cidr
+  subnet_cidrs       = var.subnet_cidrs
+  availability_zones = var.availability_zones
 }
 
 module "security_groups" {
-  source  = "../modules/security_groups"
-  vpc_id  = module.vpc.vpc_id
+  source = "../modules/security_groups"
+  vpc_id = module.vpc.vpc_id
 }
 
 module "ec2" {
-  source              = "../modules/ec2"
-  ami_id              = var.jenkins_ami
-  instance_type       = var.instance_type
-  subnet_id           = module.vpc.private_subnet_ids[0]
-  security_group_id   = module.security_groups.jenkins_sg_id
+  source            = "../modules/ec2"
+  ami_id            = var.jenkins_ami
+  instance_type     = var.instance_type
+  subnet_id         = module.vpc.private_subnet_ids[0]
+  security_group_id = module.security_groups.jenkins_sg_id
 }
 
 module "grafana" {
-  source              = "../modules/grafana"
-  ami_id              = var.jenkins_ami
-  instance_type       = var.instance_type
-  subnet_id           = module.vpc.private_subnet_ids[0]
-  security_group_id   = module.security_groups.jenkins_sg_id
+  source            = "../modules/grafana"
+  ami_id            = var.jenkins_ami
+  instance_type     = var.instance_type
+  subnet_id         = module.vpc.private_subnet_ids[0]
+  security_group_id = module.security_groups.jenkins_sg_id
 }
 
 module "iam" {
@@ -86,15 +87,15 @@ module "s3_checkov" {
 }
 
 module "api_gateway" {
-  source                = "../modules/api_gateway"
-  api_name              = var.api_name
-  lambda_invoke_arn     = module.lambda.invoke_arn
-  lambda_function_name  = module.lambda.function_name
-  region                = var.region
+  source               = "../modules/api_gateway"
+  api_name             = var.api_name
+  lambda_invoke_arn    = module.lambda.invoke_arn
+  lambda_function_name = module.lambda.function_name
+  region               = var.region
 }
 
 module "cloudfront" {
-  source                       = "../modules/cloudfront"
+  source                      = "../modules/cloudfront"
   bucket_regional_domain_name = module.s3_frontend.bucket_domain_name
 }
 
