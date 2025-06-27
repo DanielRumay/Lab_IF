@@ -13,9 +13,21 @@ pipeline {
   }
 
   stages {
+
     stage('Checkout') {
       steps {
         checkout scm
+      }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🚀 Ejecutando terraform init..."
+            terraform init -upgrade
+          '''
+        }
       }
     }
 
@@ -56,17 +68,6 @@ pipeline {
       steps {
         dir('terraform') {
           sh 'pytest test_lambda.py || true'
-        }
-      }
-    }
-
-    stage('Terraform Init') {
-      steps {
-        dir('terraform') {
-          sh '''
-        echo 🚀 Ejecutando terraform init...
-        terraform init -upgrade
-      '''
         }
       }
     }
