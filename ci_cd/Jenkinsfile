@@ -63,7 +63,10 @@ pipeline {
     stage('Terraform Init') {
       steps {
         dir('terraform') {
-          sh 'terraform init'
+          sh '''
+        echo 🚀 Ejecutando terraform init...
+        terraform init -upgrade
+      '''
         }
       }
     }
