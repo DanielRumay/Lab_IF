@@ -1,0 +1,35 @@
+const { lambdaHandler } = require("./index");
+
+describe("Lambda Handler", () => {
+    test("should return greeting with provided name", () => {
+        const event = { name: "Sthefano" };
+        const result = lambdaHandler(event);
+        expect(result.statusCode).toBe(200);
+        expect(JSON.parse(result.body)).toEqual({ message: "Hola, Sthefano" });
+    });
+
+    test("should return greeting with default when name is null", () => {
+        const event = { name: null };
+        const result = lambdaHandler(event);
+        expect(result.statusCode).toBe(200);
+        expect(JSON.parse(result.body)).toEqual({ message: "Hola, nonombre" });
+    });
+
+    test("should handle empty event object", () => {
+        const result = lambdaHandler({});
+        expect(result.statusCode).toBe(200);
+        expect(JSON.parse(result.body)).toEqual({ message: "Hola, nonombre" });
+    });
+
+    test("should handle missing name property", () => {
+        const result = lambdaHandler({ foo: "bar" });
+        expect(result.statusCode).toBe(200);
+        expect(JSON.parse(result.body)).toEqual({ message: "Hola, nonombre" });
+    });
+
+    test("should handle numeric name", () => {
+        const result = lambdaHandler({ name: 123 });
+        expect(result.statusCode).toBe(200);
+        expect(JSON.parse(result.body)).toEqual({ message: "Hola, 123" });
+    });
+});
