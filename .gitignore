@@ -18,10 +18,6 @@ override.tf.json
 .DS_Store
 Thumbs.db
 
-# Checkov or security scan results
-checkov/
-*.json
-
 # IDE/editor config
 .vscode/
 .idea/
