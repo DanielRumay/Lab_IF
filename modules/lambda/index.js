@@ -1,11 +1,8 @@
-function lambdaHandler(event) {
-    const name = event.name ?? "nonombre";
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: `Hola, ${name}`
-        })
-    };
-}
-
-module.exports = { lambdaHandler };
+exports.handler = async (event) => {
+  const name = event.name && event.name.trim() ? event.name.trim() : "nonombre";
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({ message: `Hello ${name}` }),
+  };
+  return response;
+};

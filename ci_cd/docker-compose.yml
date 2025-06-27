@@ -10,10 +10,12 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
+      # Persistencia de Jenkins
       - jenkins_home:/var/jenkins_home
+      # Mapea tu proyecto local al workspace del pipeline
+      - ./workspace:/var/jenkins_home/workspace/Infraestructura_Recetas
     environment:
       - AWS_REGION=us-east-1
-
     restart: unless-stopped
 
 volumes:

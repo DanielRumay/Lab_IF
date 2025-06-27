@@ -1,0 +1,16 @@
+{
+  "name": "recetas-lambda-test",
+  "version": "1.0.0",
+  "description": "Pruebas unitarias para la función Lambda de recetas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": ["lambda", "recetas", "test", "jest"],
+  "author": "Rumay Iglesias Eduardo, Sthefano Jimenez Atoche",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.0.3"
+  }
+}

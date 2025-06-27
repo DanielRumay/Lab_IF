@@ -16,6 +16,8 @@ RUN apt-get update && \
         python3-dev \
         build-essential \
         git \
+        nodejs \
+        npm \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar Terraform
@@ -37,8 +39,11 @@ RUN python3 -m venv /opt/checkov-env && \
     /opt/checkov-env/bin/pip install checkov && \
     ln -s /opt/checkov-env/bin/checkov /usr/local/bin/checkov
 
-# Instalar dependencias de pruebas (pytest)
-RUN pip install --no-cache-dir pytest
+# Crear entorno virtual para pruebas con pytest
+RUN python3 -m venv /opt/pytest-env && \
+    /opt/pytest-env/bin/pip install --upgrade pip && \
+    /opt/pytest-env/bin/pip install pytest && \
+    ln -s /opt/pytest-env/bin/pytest /usr/local/bin/pytest
 
 # Configurar credenciales AWS
 RUN mkdir -p /root/.aws && echo "\
@@ -50,6 +55,3 @@ output = json\n\
 " > /root/.aws/credentials
 
 USER jenkins
-
-
-
