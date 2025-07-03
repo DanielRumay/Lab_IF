@@ -19,6 +19,17 @@ pipeline {
       }
     }
 
+    stage('Terraform Init') {
+      steps {
+        dir('terraform') {
+          sh '''
+            echo "🚀 Ejecutando terraform init..."
+            terraform init -upgrade
+          '''
+        }
+      }
+    }
+
     stage('Lint Terraform') {
       steps {
         dir('terraform') {
